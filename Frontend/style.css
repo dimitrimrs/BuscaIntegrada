@@ -1,0 +1,144 @@
+/* Base */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e1e1e; /* cinza escuro */
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Texto introdutório */
+.info-box {
+  text-align: center;
+  margin-top: 5vh;
+  font-size: 1.2rem;
+  max-width: 900px;
+  line-height: 1.5;
+  padding: 0 16px;
+}
+
+/* Carrossel */
+.carousel-container {
+  display: flex;
+  align-items: center;
+  width: 92%;
+  max-width: 1300px;
+  position: relative;
+  margin-top: 24px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+.carousel::-webkit-scrollbar { display: none; }
+
+.product-card {
+  min-width: 260px;
+  max-width: 320px;
+  background: #2c2c2c;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.product-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  background: #242424;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  font-size: 0.98rem;
+  margin: 10px 0 6px;
+  color: #fff;
+}
+.product-card p { margin: 4px 0; color: #ccc; font-size: 0.92rem; }
+.product-card a { text-decoration: none; color: #2ea0ff; font-weight: bold; }
+
+/* Setas do carrossel */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(60,60,60,0.8);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 999px;
+  z-index: 2;
+}
+.nav:hover { background: rgba(100,100,100,0.95); }
+.prev { left: -14px; }
+.next { right: -14px; }
+
+/* Barra de pesquisa */
+.search-box {
+  position: fixed;     /* fixa no viewport */
+  bottom: 0;           /* encosta no rodapé */
+  left: 0;
+  width: 100%;         /* ocupa toda a largura */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background-color: #1e1e1e; /* fundo igual ao body (ou um pouco diferente se quiser destacar) */
+  border-top: 1px solid #333; /* linha separando do conteúdo */
+  z-index: 1000;       /* garante que fique na frente */
+}
+
+.search-box input {
+  flex: 1;                        /* ocupa o máximo de espaço possível */
+  max-width: 700px;
+  padding: 12px 16px;
+  border-radius: 26px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background-color: #333;         /* cinza mais claro */
+  color: #fff;
+}
+
+/* mantém o mesmo estilo quando em foco */
+.search-box input:focus {
+  background-color: #333; /* mantém cinza */
+  color: #fff;            /* mantém branco */
+}
+
+.search-box button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 26px;
+  background-color: #555;         /* cinza */
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.search-box button:hover {
+  background-color: #777;
+}
+
+/* Estado de carregamento */
+.loading {
+  width: 100%;
+  text-align: center;
+  color: #bbb;
+  padding: 12px 0;
+  font-size: 0.95rem;
+}
