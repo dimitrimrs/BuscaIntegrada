@@ -1,5 +1,6 @@
 // ====== CONFIG ======
-const API_URL = "http://localhost:3000/api/search";
+// Agora usamos rota relativa (não importa a porta/localhost)
+const API_URL = "/api/search";
 
 // Imagem padrão (inline, não depende de rede)
 const DEFAULT_IMAGE =
@@ -120,6 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Deixa as funções acessíveis ao onclick do HTML (garantia total)
+// Deixa as funções acessíveis ao onclick do HTML
 window.buscar = buscar;
 window.scrollCarousel = scrollCarousel;
