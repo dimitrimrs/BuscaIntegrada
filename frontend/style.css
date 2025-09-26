@@ -27,7 +27,7 @@ h2 {
 /* Texto introdutório */
 .info-box {
   text-align: center;
-  margin-top: 5vh;
+  margin-top: 4vh;
   font-size: 1.2rem;
   max-width: 700px;
   line-height: 1.5;
@@ -41,7 +41,7 @@ h2 {
   width: 92%;
   max-width: 1300px;
   position: relative;
-  margin-top: 58px;
+  /* margin-top: 10px; */
 }
 
 .carousel {
@@ -60,6 +60,10 @@ h2 {
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-width: 260px;
   max-width: 320px;
   background: #2c2c2c;
@@ -76,6 +80,7 @@ h2 {
   object-fit: contain;
   background: #242424;
   border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .product-card h3 {
@@ -181,6 +186,19 @@ h2 {
 .search-box button:hover {
   background-color: #777;
   color: #fff;
+}
+
+.buy-button {
+  padding: 12px 22px;
+  border: none;
+  margin-top: 20px;
+  border-radius: 26px;
+  background-color: #2ea0ff;
+  /* cinza */
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s ease;
 }
 
 /* Estado de carregamento */

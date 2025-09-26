@@ -1,5 +1,5 @@
 // ====== CONFIG ======
-// Agora usamos rota relativa (não importa a porta/localhost)
+// rota relativa (não importa a porta/localhost)
 const API_URL = "/api/search";
 
 // Imagem padrão (inline, não depende de rede)
@@ -84,12 +84,69 @@ function mostrarResultados(produtos) {
     link.href = p.link || "#";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.textContent = "Ver produto";
+    link.textContent = "Ver na loja";
 
-    card.append(img, h3, price, source, link);
+    // ====== BOTÃO COMPRAR ======
+    const buyButton = document.createElement("button");
+    buyButton.className = "buy-button";
+    buyButton.textContent = "Comprar";
+
+    buyButton.addEventListener('click', () => {
+      if (p.price) {
+        iniciarPagamento(p.title, p.price, buyButton); // Passando o próprio botão como argumento
+      } else {
+        alert('Este produto não tem um preço informado para compra.');
+      }
+    });
+
+    // Adiciona todos os elementos ao card
+    card.append(img, h3, price, source, link, buyButton);
     carousel.appendChild(card);
   });
 }
+
+// ====== FUNÇÃO DE PAGAMENTO ======
+async function iniciarPagamento(titulo, preco, botaoClicado) {
+  console.log(`Iniciando pagamento para ${titulo} por ${preco}`);
+
+  const allBuyButtons = document.querySelectorAll('.buy-button');
+  allBuyButtons.forEach(btn => btn.disabled = true);
+
+  if (botaoClicado) {
+    botaoClicado.textContent = "Aguarde...";
+  }
+
+  try {
+    const response = await fetch('/api/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: titulo,
+        price: preco
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Falha ao gerar o link de pagamento.');
+    }
+
+    const data = await response.json();
+
+    if (data.paymentUrl) {
+      window.location.href = data.paymentUrl;
+    }
+
+  } catch (err) {
+    console.error("Erro ao iniciar pagamento:", err);
+    alert('Não foi possível iniciar o processo de pagamento. Tente novamente.');
+
+    allBuyButtons.forEach(btn => btn.disabled = false);
+    if (botaoClicado) {
+      botaoClicado.textContent = "Comprar";
+    }
+  }
+}
+
 
 // ====== HELPERS ======
 function getImageUrl(p) {
@@ -124,3 +181,4 @@ document.addEventListener("DOMContentLoaded", () => {
 // Deixa as funções acessíveis ao onclick do HTML
 window.buscar = buscar;
 window.scrollCarousel = scrollCarousel;
+window.iniciarPagamento = iniciarPagamento;
